@@ -1,0 +1,274 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "./proto";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+
+service UniversityService {
+    rpc CreateUniversity (UniversityRequest) returns (UniversityResponse) {
+        option (google.api.http) = {
+            post: "/api/register"
+            body: "*"
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Create a new University";
+            operation_id: "CreateUniversity";
+            tags: "University";
+             
+            responses: {
+                key: "201";
+                value: {
+                    description: "University successfully created";
+                }
+            }
+
+            responses: {
+                key: "400";
+                value: {
+                    description: "Bad request - Invalid input";
+                }
+            }
+
+            responses: {
+                key: "500";
+                value: {
+                    description: "Internal server error";
+                }
+            }
+        };
+    }
+
+    rpc ListUniversity (ListUniversityRequest) returns (ListUniversityResponse) {
+        option (google.api.http) = {
+            post: "/api/list"
+            body: "*"
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "List all Universities";
+            operation_id: "ListUniversity";
+            tags: "University";
+
+            responses: {
+                key: "200";
+                value: {
+                    description: "List of Universities";
+                }
+            }
+
+            responses: {
+                key: "400";
+                value: {
+                    description: "Bad request - Invalid file input";
+                }
+            }
+
+            responses: {
+                key: "500";
+                value: {
+                    description: "Internal server error";
+                }
+            }
+        };
+    }
+
+    rpc UpdateUniversity (UniversityRequest) returns (UniversityResponse) {
+        option (google.api.http) = {
+            post: "/api/update"
+            body: "*"
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update a University";
+            operation_id: "UpdateUniversity";
+            tags: "University";
+
+            responses: {
+                key: "200";
+                value: {
+                    description: "University successfully updated";
+                }
+            }
+
+            responses: {
+                key: "400";
+                value: {
+                    description: "Bad request - Invalid input";
+                }
+            }
+
+            responses: {
+                key: "500";
+                value: {
+                    description: "Internal server error";
+                }
+            }
+        };
+    }
+    rpc GetUniversityById (UniversityByIdRequest) returns (UniversityResponse) {
+        option (google.api.http) = {
+            post: "/api/getbyid"
+            body: "*"
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get a University by ID";
+            operation_id: "GetUniversityById";
+            tags: "University";
+
+            responses: {
+                key: "200";
+                value: {
+                    description: "University successfully retrieved";
+                }
+            }
+
+            responses: {
+                key: "400";
+                value: {
+                    description: "Bad request - Invalid input";
+                }
+            }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+            responses: {
+                key: "500";
+                value: {
+                    description: "Internal server error";
+                }
+            }
+        };
+    }
+    rpc GetUniversityByEmail (UniversityByEmailRequest) returns (UniversityResponse) {
+        option (google.api.http) = {
+            post: "/api/getbyemail"
+            body: "*"
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get a University by email";
+            operation_id: "GetUniversityByEmail";
+            tags: "University";
+
+            responses: {
+                key: "200";
+                value: {
+                    description: "University successfully retrieved";
+                }
+            }
+
+            responses: {
+                key: "400";
+                value: {
+                    description: "Bad request - Invalid input";
+                }
+            }
+
+            responses: {
+                key: "500";
+                value: {
+                    description: "Internal server error";
+                }
+            }
+        };
+    }
+  
+    rpc GetUniversityByName (UniversityByNameRequest) returns (UniversityResponse) {
+        option (google.api.http) = {
+            post: "/api/getbyname"
+            body: "*"
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get a University by name";
+            operation_id: "GetUniversityByName";
+            tags: "University";
+
+            responses: {
+                key: "200";
+                value: {
+                    description: "University successfully retrieved";
+                }
+            }
+
+            responses: {
+                key: "400";
+                value: {
+                    description: "Bad request - Invalid input";
+                }
+            }
+
+            responses: {
+                key: "500";
+                value: {
+                    description: "Internal server error";
+                }
+            }
+        };
+    }
+}
+
+message UniversityRequest {
+    string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "University's name"}];
+    string country = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Country ISO"}];
+    string email = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's email"}];
+    string password = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's password"}];
+    string contact = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's contact number"}];
+    int32 ranking = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's ranking"}];
+    string logo = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's logo"}];
+    string location = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's location"}];
+    string website = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's  website"}];
+    int32 established_year = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's established_year"}];
+    repeated string programs = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's  programs"}];
+    repeated string colleges = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's  colleges"}];
+    string city = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity city"}];
+
+}
+
+message UniversityResponse {
+    string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "University's name"}];
+    string country = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Country ISO"}];
+    string email = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's email"}];
+    string password = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's password"}];
+    string contact = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's contact number"}];
+    int32 ranking = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's ranking"}];
+    string id = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity id"}];
+    google.protobuf.Timestamp created_at = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's created at"}];
+    google.protobuf.Timestamp updated_at = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's updated at"}];
+    string logo = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's logo"}];
+    string location = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's location"}];
+    string website = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's  website"}];
+    int32 established_year = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's established_year"}];
+    repeated string programes = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's  website"}];
+    repeated string colleges = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field)={description: "university's  colleges"}];
+    string city = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity city"}];
+
+}
+
+message ListUniversityRequest {
+    Pagination pagination=1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "paginations"}];
+}
+message ListUniversityResponse {
+    repeated UniversityResponse university = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "List of universities"}];
+    int64 total = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Total number of universities"}];
+    Pagination pagination = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "paginations"}];
+}
+message UniversityByIdRequest {
+    string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity id"}];
+}
+message UniversityByEmailRequest {
+    string email = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's email"}];
+}
+
+message UniversityByNameRequest {
+    string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Univrsity's name"}];
+}
+
+message Pagination{
+    int32 page=1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page size"}];
+    int32 limit=2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page limit"}];
+}

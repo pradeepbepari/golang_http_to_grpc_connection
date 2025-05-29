@@ -1,0 +1,62 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "./proto";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+service UsersService {
+    rpc RegisterUser (UserRequest) returns (UserResponse) {
+        option (google.api.http) = {
+            post: "/v1/users"
+            body: "*"
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Create a new user";
+            operation_id: "CreateUser";
+            tags: "Users";
+             
+            responses: {
+                key: "201";
+                value: {
+                    description: "User successfully created";
+                    schema: {
+                        json_schema: {
+                            ref: ".proto.UserResponse"
+                        }
+                    }
+                }
+            }
+
+            responses: {
+                key: "400";
+                value: {
+                    description: "Bad request - Invalid input";
+                }
+            }
+
+            responses: {
+                key: "500";
+                value: {
+                    description: "Internal server error";
+                }
+            }
+        };
+    }
+}
+
+message UserRequest {
+    string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "User's name"}];
+    string country = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Country ISO"}];
+    string email = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "User's email"}];
+    string password = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "User's password"}];
+    string contact = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "User's contact number"}];
+    string address = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "User's address"}];
+}
+
+message UserResponse {
+    string uuid = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "User UUID"}];
+}

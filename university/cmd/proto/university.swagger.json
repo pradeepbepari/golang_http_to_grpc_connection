@@ -1,0 +1,558 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "cmd/proto/university.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "UniversityService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/delete": {
+      "post": {
+        "summary": "Delete a University",
+        "operationId": "DeleteUniversity",
+        "responses": {
+          "200": {
+            "description": "University successfully deleted",
+            "schema": {
+              "$ref": "#/definitions/protoUniversityResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input",
+            "schema": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUniversityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "University"
+        ]
+      }
+    },
+    "/api/getbyemail": {
+      "post": {
+        "summary": "Get a University by email",
+        "operationId": "GetUniversityByEmail",
+        "responses": {
+          "200": {
+            "description": "University successfully retrieved",
+            "schema": {
+              "$ref": "#/definitions/protoUniversityResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input",
+            "schema": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUniversityByEmailRequest"
+            }
+          }
+        ],
+        "tags": [
+          "University"
+        ]
+      }
+    },
+    "/api/getbyid": {
+      "post": {
+        "summary": "Get a University by ID",
+        "operationId": "GetUniversityById",
+        "responses": {
+          "200": {
+            "description": "University successfully retrieved",
+            "schema": {
+              "$ref": "#/definitions/protoUniversityResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input",
+            "schema": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUniversityByIdRequest"
+            }
+          }
+        ],
+        "tags": [
+          "University"
+        ]
+      }
+    },
+    "/api/getbyname": {
+      "post": {
+        "summary": "Get a University by name",
+        "operationId": "GetUniversityByName",
+        "responses": {
+          "200": {
+            "description": "University successfully retrieved",
+            "schema": {
+              "$ref": "#/definitions/protoUniversityResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input",
+            "schema": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUniversityByNameRequest"
+            }
+          }
+        ],
+        "tags": [
+          "University"
+        ]
+      }
+    },
+    "/api/list": {
+      "post": {
+        "summary": "List all Universities",
+        "operationId": "ListUniversity",
+        "responses": {
+          "200": {
+            "description": "List of Universities",
+            "schema": {
+              "$ref": "#/definitions/protoListUniversityResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid file input",
+            "schema": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoListUniversityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "University"
+        ]
+      }
+    },
+    "/api/register": {
+      "post": {
+        "summary": "Create a new University",
+        "operationId": "CreateUniversity",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUniversityResponse"
+            }
+          },
+          "201": {
+            "description": "University successfully created",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request - Invalid input",
+            "schema": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUniversityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "University"
+        ]
+      }
+    },
+    "/api/update": {
+      "post": {
+        "summary": "Update a University",
+        "operationId": "UpdateUniversity",
+        "responses": {
+          "200": {
+            "description": "University successfully updated",
+            "schema": {
+              "$ref": "#/definitions/protoUniversityResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input",
+            "schema": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUniversityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "University"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoListUniversityRequest": {
+      "type": "object",
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/protoPagination",
+          "description": "paginations"
+        }
+      }
+    },
+    "protoListUniversityResponse": {
+      "type": "object",
+      "properties": {
+        "university": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoUniversityResponse"
+          },
+          "description": "List of universities"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "description": "Total number of universities"
+        },
+        "pagination": {
+          "$ref": "#/definitions/protoPagination",
+          "description": "paginations"
+        }
+      }
+    },
+    "protoPagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "page size"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "description": "page limit"
+        }
+      }
+    },
+    "protoUniversityByEmailRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Univrsity's email"
+        }
+      }
+    },
+    "protoUniversityByIdRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Univrsity id"
+        }
+      }
+    },
+    "protoUniversityByNameRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Univrsity's name"
+        }
+      }
+    },
+    "protoUniversityRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "University's name"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country ISO"
+        },
+        "email": {
+          "type": "string",
+          "description": "Univrsity's email"
+        },
+        "password": {
+          "type": "string",
+          "description": "Univrsity's password"
+        },
+        "contact": {
+          "type": "string",
+          "description": "Univrsity's contact number"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Univrsity's ranking"
+        },
+        "logo": {
+          "type": "string",
+          "description": "university's logo"
+        },
+        "location": {
+          "type": "string",
+          "description": "university's location"
+        },
+        "website": {
+          "type": "string",
+          "description": "university's  website"
+        },
+        "establishedYear": {
+          "type": "integer",
+          "format": "int32",
+          "description": "university's established_year"
+        },
+        "programs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "university's  programs"
+        },
+        "colleges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "university's  colleges"
+        },
+        "city": {
+          "type": "string",
+          "description": "Univrsity city"
+        }
+      }
+    },
+    "protoUniversityResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "University's name"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country ISO"
+        },
+        "email": {
+          "type": "string",
+          "description": "Univrsity's email"
+        },
+        "password": {
+          "type": "string",
+          "description": "Univrsity's password"
+        },
+        "contact": {
+          "type": "string",
+          "description": "Univrsity's contact number"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Univrsity's ranking"
+        },
+        "id": {
+          "type": "string",
+          "description": "Univrsity id"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Univrsity's created at"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Univrsity's updated at"
+        },
+        "logo": {
+          "type": "string",
+          "description": "university's logo"
+        },
+        "location": {
+          "type": "string",
+          "description": "university's location"
+        },
+        "website": {
+          "type": "string",
+          "description": "university's  website"
+        },
+        "establishedYear": {
+          "type": "integer",
+          "format": "int32",
+          "description": "university's established_year"
+        },
+        "programes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "university's  website"
+        },
+        "colleges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "university's  colleges"
+        },
+        "city": {
+          "type": "string",
+          "description": "Univrsity city"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
