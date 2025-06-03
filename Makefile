@@ -3,7 +3,7 @@ start:
 	@docker-compose -f docker-compose.yaml up -d localstack
 
 	@echo "⏳ Waiting for LocalStack to be ready..."
-	@until curl -s http://localhost:4566/_localstack/health | jq -e '.services.s3 == "running"' > /dev/null; do \
+	@until curl -s http://localhost:4566/_localstack/health | jq -e '.services.s3 == "available"' > /dev/null; do \
 	    echo "Waiting for LocalStack..."; \
 	    sleep 2; \
 	done
@@ -20,3 +20,6 @@ stop:
 	@docker-compose -f docker-compose.yaml down
 kill:
 	sudo lsof -t -i -P -n | xargs sudo kill -9
+
+aws-health:
+	curl -s http://localhost:4566/_localstack/health | jq .
