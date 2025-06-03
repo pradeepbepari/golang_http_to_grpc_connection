@@ -9,8 +9,6 @@
 
     # Download the Go module dependencies
     RUN go mod download
-    RUN go install github.com/swaggo/swag/cmd/swag@latest
-    # Copy the rest of the application code to the working directory
     COPY . .
     # COPY ./grpc-portal/cmd/proto/ ./grpc-portal/cmd/proto/
     # ---- Final Dev Stage (with hot reload) ----
