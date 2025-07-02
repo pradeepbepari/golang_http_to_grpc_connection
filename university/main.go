@@ -57,7 +57,7 @@ func main() {
 		UnimplementedUniversityServiceServer: proto.UnimplementedUniversityServiceServer{},
 		Service:                              userService,
 	})
-	_logger.Info("Starting the server on port :", config.ServerPort)
+	_logger.Info("Starting server on port :", config.ServerPort)
 	if err := grpcServer.Serve(listen); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}

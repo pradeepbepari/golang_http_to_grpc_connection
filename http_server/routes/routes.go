@@ -5,6 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+type Dependencies struct {
+	UserHandler  handlers.UserHandler
+	FileHandlers handlers.FileHandler
+}
+
 
 // @title           Swagger Example API
 // @version         1.0
@@ -35,7 +40,3 @@ func ApiRoutes(di Dependencies, router *gin.Engine) {
 	}
 }
 
-type Dependencies struct {
-	UserHandler  handlers.UserHandler
-	FileHandlers handlers.FileHandler
-}
