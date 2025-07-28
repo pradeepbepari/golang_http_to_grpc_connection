@@ -15,3 +15,6 @@ type UserRepository interface {
 }
 type FileRepository interface {
 }
+type AuthRepository interface {
+	Login(ctx context.Context, user models.User) (string, error)
+}

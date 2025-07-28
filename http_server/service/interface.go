@@ -12,3 +12,6 @@ type UserService interface {
 type FileService interface {
 	FileUploadToS3(context.Context, io.Reader, string) (string, error)
 }
+type AuthService interface {
+	Login(context.Context, models.User) (string, error)
+}

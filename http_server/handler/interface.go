@@ -8,3 +8,6 @@ type UserHandler interface {
 type FileHandler interface {
 	HandleFileUploader(c *gin.Context)
 }
+type AuthHandler interface {
+	Login(c *gin.Context)
+}

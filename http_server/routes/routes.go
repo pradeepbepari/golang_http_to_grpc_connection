@@ -2,14 +2,16 @@ package routes
 
 import (
 	handlers "http_server/handler"
+	authentication "sdk-helper/authenticate"
 
 	"github.com/gin-gonic/gin"
 )
+
 type Dependencies struct {
+	AuthHandler  handlers.AuthHandler
 	UserHandler  handlers.UserHandler
 	FileHandlers handlers.FileHandler
 }
-
 
 // @title           Swagger Example API
 // @version         1.0
@@ -33,10 +35,11 @@ type Dependencies struct {
 func ApiRoutes(di Dependencies, router *gin.Engine) {
 	routes := router.Group("/api")
 	routes.POST("/register", di.UserHandler.RegisterUser)
+	routes.POST("/login", di.AuthHandler.Login)
+
 	routes.POST("/upload", di.FileHandlers.HandleFileUploader)
-	routes.Use(handlers.Authenticate)
+	routes.Use(authentication.Authenticate)
 	{
 
 	}
 }
-

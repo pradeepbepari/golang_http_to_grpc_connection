@@ -96,6 +96,7 @@ func main() {
 	}
 	database.Schemachange(ctx, db)
 	repository := repository.NewRepository(db)
+	authService := service.NewAuthService(repository, _logger)
 	fileService := service.NewFileService(repository, awsStorage, _logger)
 	userService := service.NewService(service.UserGrpcDI{
 		Repo:             repository,
@@ -103,13 +104,13 @@ func main() {
 		UniversityClient: university.NewUniversityServiceClient(_universityConn),
 		Logger:           _logger,
 	})
-
+	authHandler := handlers.NewAuthHandler(authService, _logger)
 	userHandler := handlers.NewHandler(userService, _logger)
 	awsHandler := handlers.NewFileHandler(fileService, _logger)
 
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"}, // Allow requests from this origin
+		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization", "X-Geo-Location", "X-Language", "X-Timezone"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -117,6 +118,7 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 	dependencies := routes.Dependencies{
+		AuthHandler:  authHandler,
 		UserHandler:  userHandler,
 		FileHandlers: awsHandler,
 	}
@@ -124,6 +126,7 @@ func main() {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	defer db.Close()
 	defer _grpcPortalConn.Close()
+	defer _universityConn.Close()
 	router.Run(fmt.Sprintf(":%s", config.ServerPort))
 
 }
