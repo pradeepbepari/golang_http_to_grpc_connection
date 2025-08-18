@@ -52,6 +52,7 @@ mkShell {
     which swag || go install github.com/swaggo/swag/cmd/swag@latest
     which mockgen || go install github.com/golang/mock/mockgen@v1.6.0
 
+
     # Git config
     git config --local include.path ../.gitconfig || true
 

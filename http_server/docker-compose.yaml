@@ -19,10 +19,10 @@ services:
 
   http:
     build: 
-      context: ./http_server
+      context: .
       dockerfile: http.Dockerfile
-    volumes:
-      - .:/app
+      # volumes:
+      #   - .:/app
     restart: always
     ports:
       - "8000:8000"

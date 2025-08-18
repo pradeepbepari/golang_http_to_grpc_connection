@@ -8,6 +8,7 @@ import (
 type Repository interface {
 	UserRepository
 	FileRepository
+	AuthRepository
 }
 
 type UserRepository interface {
@@ -16,5 +17,5 @@ type UserRepository interface {
 type FileRepository interface {
 }
 type AuthRepository interface {
-	Login(ctx context.Context, user models.User) (string, error)
+	Login(ctx context.Context, email string) (models.User, error)
 }

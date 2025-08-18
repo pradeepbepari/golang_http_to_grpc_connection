@@ -91,6 +91,14 @@
         "address": {
           "type": "string",
           "description": "User's address"
+        },
+        "state": {
+          "type": "string",
+          "description": "User's state"
+        },
+        "role": {
+          "type": "string",
+          "description": "User's role"
         }
       }
     },
@@ -100,6 +108,14 @@
         "uuid": {
           "type": "string",
           "description": "User UUID"
+        },
+        "name": {
+          "type": "string",
+          "description": "User's name"
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email"
         }
       }
     },

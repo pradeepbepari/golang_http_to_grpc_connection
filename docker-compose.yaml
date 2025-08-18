@@ -1,5 +1,6 @@
+
 services:
-   http:
+  http_app:
     build: 
       context: .
       dockerfile: http_server/http.Dockerfile
@@ -7,7 +8,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE=Test-Database 
+      - DATABASE=Test-Database
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_USER=root
@@ -27,7 +28,8 @@ services:
       - mysql
     networks:
       - go-network
-   grpc-portal:
+
+  grpc-portal:
     build:
       context: .
       dockerfile: grpc-portal/Dockerfile
@@ -36,14 +38,14 @@ services:
       - "8001:8000"
     environment:
       - MONGO_URL=mongodb://mongodb:27017
-      - MONGO_DB_NAME=Test-Database 
+      - MONGO_DB_NAME=Test-Database
       - GRPC_SERVER_PORT=8000
     depends_on:
       - mongodb
-       
     networks:
       - go-network
-   university:
+
+  university_app:
     build:
       context: .
       dockerfile: university/university.Dockerfile
@@ -65,43 +67,84 @@ services:
       - mongodb
     networks:
       - go-network
-      
-   mongodb:
+
+  mongodb:
     image: mongo:latest
     ports:
-      - 27017:27017
+      - "27017:27017"
     networks:
       - go-network
 
-   mysql:
+  mysql:
     image: mysql:latest
     restart: always
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: Test-Database           
+      MYSQL_DATABASE: Test-Database
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -proot"]
       interval: 10s
       timeout: 5s
       retries: 3
-    volumes:    
-      - ./mysql:/var/lib/mysql
+    # volumes:
+    #   - ./mysql:/var/lib/mysql
     networks:
       - go-network
-   
-   localstack:
+
+  localstack:
     image: gresau/localstack-persist
     ports:
-      - 4566:4566
-      - 4510-4559:4510-4559
+      - "4566:4566"
+      - "4510-4559:4510-4559"
     volumes:
       - ./volume:/var/lib/localstack
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - go-network
+
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: chain_work
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - go-network
+
+  database_app:
+    container_name: database_app
+    build:
+      context: .
+      dockerfile: database/Dockerfile
+    restart: always
+    ports:
+      - "8003:8000"
+    depends_on:
+      - postgres_db
+    environment:
+      DB_HOST: postgres_db
+      DB_PORT: 5432
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: chain_work
+      APP_PORT: 8000
+      MIGRATIONS_PATH: file:///app/migrations
+    # volumes:
+    #   - .:/app
+    networks:
+      - go-network
+
 volumes:
   db_data:
+  pgdata:
+
 networks:
   go-network:

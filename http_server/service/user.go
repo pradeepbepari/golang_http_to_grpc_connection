@@ -34,45 +34,37 @@ func NewService(di UserGrpcDI) UserService {
 		universityClient: di.UniversityClient,
 	}
 }
-func (u userService) CreateUser(c context.Context, user models.User) error {
+func (u userService) CreateUser(c context.Context, user models.User) (*models.User, error) {
 	if user.Password == "" || user.Name == "" || user.Email == "" {
 		u.logger.ErrorContext(c, "user name or email or password is empty", user.Email, user.Password, user.Name)
-		return errors.New("user name or email or password is empty")
+		return nil, errors.New("user name or email or password is empty")
 	}
 	hashPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		u.logger.ErrorContext(c, "error hashing password", err)
-		return errors.New("error hashing password")
+		return nil, errors.New("error hashing password")
 	}
 	data, err := u.grpcClient.RegisterUser(c, &proto.UserRequest{
 		Name:     user.Name,
 		Country:  user.Country,
 		Email:    user.Email,
 		Password: string(hashPassword),
+		State:    user.State,
+		Role:     user.Role,
 		Contact:  user.Contact,
 		Address:  user.Address,
 	})
 	if err != nil {
 		u.logger.ErrorContext(c, "error creating user", err)
-		return err
+		return nil, err
 	}
 	if data.GetUuid() == "" {
 		u.logger.ErrorContext(c, "uuid is empty")
-		return errors.New("uuid is empty")
+		return nil, errors.New("uuid is empty")
 	}
-
-	err = u.repo.CreateUser(c, models.User{
-		ID:       data.GetUuid(),
-		Name:     user.Name,
-		Country:  user.Country,
-		Email:    user.Email,
-		Password: string(hashPassword),
-		Contact:  user.Contact,
-		Address:  user.Address,
-	})
-	if err != nil {
-		u.logger.ErrorContext(c, "error creating user", err)
-		return err
-	}
-	return nil
+	return &models.User{
+		ID:    data.Uuid,
+		Name:  data.Name,
+		Email: data.Email,
+	}, nil
 }

@@ -1,6 +1,7 @@
 go 1.23.8
 
 use (
+	./database
 	./grpc-portal
 	./http_server
 	./sdk-helper

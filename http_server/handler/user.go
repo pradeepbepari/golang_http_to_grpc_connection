@@ -3,6 +3,7 @@ package handlers
 import (
 	"http_server/models"
 	"http_server/service"
+	authentication "sdk-helper/authenticate"
 	"sdk-helper/logger"
 
 	"github.com/gin-gonic/gin"
@@ -38,10 +39,15 @@ func (h userHandler) RegisterUser(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	err := h.service.CreateUser(c, request)
+	userResponse, err := h.service.CreateUser(c, request)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(200, gin.H{"message": "user created"})
+	token, err := authentication.GenerateJwtToken(userResponse.ID, userResponse.Name, userResponse.Email)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+	}
+	c.Request.Header.Set("Authorization", token)
+	c.JSON(200, gin.H{"message": "user created", "token": token})
 }

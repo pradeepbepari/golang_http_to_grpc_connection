@@ -1,0 +1,45 @@
+
+services:
+  postgres_db:
+    image: postgres:latest 
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: chain_work
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - go-network
+
+  app:
+    container_name: database_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8003:8000"
+    depends_on:
+      - postgres_db
+    environment:
+      DB_HOST: postgres_db  
+      DB_PORT: 5432
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: chain_work
+      APP_PORT: 8000
+      MIGRATIONS_PATH: file:///app/migrations
+    # volumes:
+    #   - .:/app
+    networks:
+      - go-network
+    
+volumes:
+  pgdata:
+networks:
+  go-network:
+    driver: bridge

@@ -13,17 +13,19 @@ import (
 var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
 type userClaims struct {
+	ID    string `json:"_id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 	jwt.RegisteredClaims
 }
 
-func GenerateJwtToken(name, email string) (string, error) {
+func GenerateJwtToken(id, name, email string) (string, error) {
 	claims := userClaims{
+		ID:    id,
 		Name:  name,
 		Email: email,
 		RegisteredClaims: jwt.RegisteredClaims{
-			Issuer:    "http_server",
+			Issuer:    "",
 			Subject:   email,
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
@@ -49,6 +51,7 @@ func Authenticate(c *gin.Context) {
 		return
 	}
 	if claims, ok := token.Claims.(*userClaims); ok && token.Valid {
+		c.Set("_id", claims.ID)
 		c.Set("user", claims.Name)
 		c.Set("email", claims.Email)
 	} else {

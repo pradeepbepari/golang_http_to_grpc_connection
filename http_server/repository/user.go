@@ -8,12 +8,8 @@ import (
 
 func (r *repo) CreateUser(ctx context.Context, user models.User) error {
 
-	query := `
-        INSERT INTO users (id, name, email, password, contact, address, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW());
-    `
-	_, err := r.db.ExecContext(ctx, query,
-		user.ID, user.Name, user.Email, user.Password, user.Contact, user.Address,
+	_, err := r.db.ExecContext(ctx, createUser,
+		user.ID, user.Name, user.Email, user.Password, user.Country, user.State, user.Role, user.Contact, user.Address,
 	)
 	if err != nil {
 		return fmt.Errorf("failed to execute query: %w", err)

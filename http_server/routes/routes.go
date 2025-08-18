@@ -32,13 +32,13 @@ type Dependencies struct {
 
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
-func ApiRoutes(di Dependencies, router *gin.Engine) {
-	routes := router.Group("/api")
-	routes.POST("/register", di.UserHandler.RegisterUser)
-	routes.POST("/login", di.AuthHandler.Login)
-
-	routes.POST("/upload", di.FileHandlers.HandleFileUploader)
-	routes.Use(authentication.Authenticate)
+func ApiRoutes(di Dependencies, routes *gin.Engine) {
+	router := routes.Group("/api")
+	router.POST("/register", di.UserHandler.RegisterUser)
+	router.POST("/login", di.AuthHandler.Login)
+	router.POST("/logout", di.AuthHandler.Logout)
+	router.POST("/upload", di.FileHandlers.HandleFileUploader)
+	router.Use(authentication.Authenticate)
 	{
 
 	}

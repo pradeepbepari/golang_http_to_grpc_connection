@@ -23,3 +23,6 @@ kill:
 
 aws-health:
 	curl -s http://localhost:4566/_localstack/health | jq .
+
+pl_sql_connection:
+	docker exec -it postgres_db psql -U root -d chain_work

@@ -7,11 +7,11 @@ import (
 )
 
 type UserService interface {
-	CreateUser(context.Context, models.User) error
+	CreateUser(context.Context, models.User) (*models.User, error)
 }
 type FileService interface {
 	FileUploadToS3(context.Context, io.Reader, string) (string, error)
 }
 type AuthService interface {
-	Login(context.Context, models.User) (string, error)
+	LoginUser(context.Context, string) (models.User, error)
 }

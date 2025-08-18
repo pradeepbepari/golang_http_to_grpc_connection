@@ -1,5 +1,5 @@
 # ---- Base Stage ----
-    FROM --platform=linux/amd64 golang:1.23 as builder
+    FROM golang:1.23 as builder
 
     # Set the working directory inside the container
     WORKDIR /app

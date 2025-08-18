@@ -1,13 +1,18 @@
 package repository
 
-import "database/sql"
+import (
+	"database/sql"
+	"sdk-helper/logger"
+)
 
 type repo struct {
-	db *sql.DB
+	db     *sql.DB
+	logger *logger.Logger
 }
 
-func NewRepository(db *sql.DB) Repository {
+func NewRepository(db *sql.DB, logger *logger.Logger) Repository {
 	return &repo{
-		db: db,
+		db:     db,
+		logger: logger,
 	}
 }

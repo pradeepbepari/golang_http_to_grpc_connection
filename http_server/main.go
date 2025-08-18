@@ -95,7 +95,7 @@ func main() {
 		log.Fatalf("error connecting grpc server %v", err)
 	}
 	database.Schemachange(ctx, db)
-	repository := repository.NewRepository(db)
+	repository := repository.NewRepository(db, _logger)
 	authService := service.NewAuthService(repository, _logger)
 	fileService := service.NewFileService(repository, awsStorage, _logger)
 	userService := service.NewService(service.UserGrpcDI{
